@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS bookings (
+    id               BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id          BIGINT NOT NULL,
+    user_email       VARCHAR(150),
+    vehicle_id       BIGINT NOT NULL,
+    vehicle_name     VARCHAR(100),
+    pickup_at        DATETIME NOT NULL,
+    dropoff_at       DATETIME NOT NULL,
+    pickup_location  VARCHAR(200),
+    dropoff_location VARCHAR(200),
+    total_amount     DECIMAL(10,2) NOT NULL,
+    rental_days      INT NOT NULL,
+    status           VARCHAR(30) NOT NULL,
+    cancel_reason    VARCHAR(300),
+    created_at       DATETIME NOT NULL,
+    updated_at       DATETIME,
+    INDEX idx_user (user_id),
+    INDEX idx_vehicle (vehicle_id),
+    INDEX idx_status (status)
+);

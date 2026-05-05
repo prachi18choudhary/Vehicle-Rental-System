@@ -1,0 +1,155 @@
+{
+  "info": {
+    "name": "Vehicle Rental System",
+    "_postman_id": "vrs-collection-001",
+    "description": "End-to-end API collection for Vehicle Rental System microservices via API Gateway.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" },
+    { "key": "vehicleId", "value": "1" },
+    { "key": "bookingId", "value": "" },
+    { "key": "razorpayOrderId", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{accessToken}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"fullName\": \"John Doe\",\n  \"phone\": \"9999999999\"\n}" }
+          },
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "const res = pm.response.json();",
+              "pm.collectionVariables.set('accessToken', res.accessToken);",
+              "pm.collectionVariables.set('refreshToken', res.refreshToken);"
+            ], "type": "text/javascript" }
+          }]
+        },
+        {
+          "name": "Login (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@vrs.com\",\n  \"password\": \"Admin@123\"\n}" }
+          },
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "const res = pm.response.json();",
+              "pm.collectionVariables.set('accessToken', res.accessToken);",
+              "pm.collectionVariables.set('refreshToken', res.refreshToken);"
+            ], "type": "text/javascript" }
+          }]
+        },
+        { "name": "Me", "request": { "method": "GET", "url": "{{baseUrl}}/auth/me" } },
+        {
+          "name": "Refresh",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/refresh",
+            "body": { "mode": "raw", "raw": "{ \"refreshToken\": \"{{refreshToken}}\" }" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vehicles",
+      "item": [
+        { "name": "List", "request": { "method": "GET", "url": "{{baseUrl}}/vehicles?size=10" } },
+        { "name": "Get", "request": { "method": "GET", "url": "{{baseUrl}}/vehicles/{{vehicleId}}" } },
+        {
+          "name": "Check Availability",
+          "request": { "method": "GET", "url": "{{baseUrl}}/vehicles/{{vehicleId}}/availability?pickupAt=2026-05-01T10:00:00&dropoffAt=2026-05-03T10:00:00" }
+        },
+        {
+          "name": "Create (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/vehicles",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Test Car\",\n  \"brand\": \"Brand\",\n  \"type\": \"SEDAN\",\n  \"transmission\": \"AUTOMATIC\",\n  \"fuel\": \"PETROL\",\n  \"seats\": 5,\n  \"pricePerDay\": 2000,\n  \"location\": \"Mumbai\",\n  \"licensePlate\": \"TEST001\",\n  \"yearMade\": 2024\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/bookings",
+            "body": { "mode": "raw", "raw": "{\n  \"vehicleId\": {{vehicleId}},\n  \"pickupAt\": \"2026-05-01T10:00:00\",\n  \"dropoffAt\": \"2026-05-03T10:00:00\",\n  \"pickupLocation\": \"Mumbai Airport\",\n  \"dropoffLocation\": \"Mumbai Airport\"\n}" }
+          },
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "const res = pm.response.json();",
+              "pm.collectionVariables.set('bookingId', res.id);"
+            ], "type": "text/javascript" }
+          }]
+        },
+        { "name": "My Bookings", "request": { "method": "GET", "url": "{{baseUrl}}/bookings/me" } },
+        { "name": "Get Booking", "request": { "method": "GET", "url": "{{baseUrl}}/bookings/{{bookingId}}" } },
+        {
+          "name": "Cancel",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/bookings/{{bookingId}}/cancel",
+            "body": { "mode": "raw", "raw": "{ \"reason\": \"Plan changed\" }" }
+          }
+        },
+        { "name": "All Bookings (Admin)", "request": { "method": "GET", "url": "{{baseUrl}}/bookings?size=20" } }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/payments/order",
+            "body": { "mode": "raw", "raw": "{ \"bookingId\": {{bookingId}}, \"amount\": 4000 }" }
+          },
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "const res = pm.response.json();",
+              "pm.collectionVariables.set('razorpayOrderId', res.razorpayOrderId);"
+            ], "type": "text/javascript" }
+          }]
+        },
+        { "name": "Get By Booking", "request": { "method": "GET", "url": "{{baseUrl}}/payments/booking/{{bookingId}}" } },
+        { "name": "My Payments", "request": { "method": "GET", "url": "{{baseUrl}}/payments/me" } }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        { "name": "List", "request": { "method": "GET", "url": "{{baseUrl}}/notifications/me" } },
+        { "name": "Unread Count", "request": { "method": "GET", "url": "{{baseUrl}}/notifications/me/unread-count" } },
+        { "name": "Mark All Read", "request": { "method": "POST", "url": "{{baseUrl}}/notifications/me/read-all" } }
+      ]
+    }
+  ]
+}

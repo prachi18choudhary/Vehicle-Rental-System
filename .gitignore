@@ -1,0 +1,35 @@
+.env
+*.env.local
+
+# Java / Maven
+target/
+*.class
+*.jar
+.mvn/
+HELP.md
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.project
+.classpath
+.settings/
+
+# Node / React
+node_modules/
+dist/
+.vite/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Docker
+*.tar
