@@ -1,0 +1,29 @@
+PS C:\Users\Prachi.Choudhary\Desktop\Vehicle Rental System> cd backend/api-gateway
+PS C:\Users\Prachi.Choudhary\Desktop\Vehicle Rental System\backend\api-gateway> mvn spring-boot:run
+>> 
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< com.vrs:api-gateway >-------------------------
+[INFO] Building api-gateway 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.5:run (default-cli) > test-compile @ api-gateway >>>
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.916 s
+[INFO] Finished at: 2026-05-06T01:32:40+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal on project api-gateway: Could not collect dependencies for project com.vrs:api-gateway:jar:1.0.0
+[ERROR] Failed to read artifact descriptor for com.vrs:common-lib:jar:1.0.0
+[ERROR]         Caused by: The following artifacts could not be resolved: com.vrs:vehicle-rental-system:pom:1.0.0 (absent): com.vrs:vehicle-rental-system:pom:1.0.0 was not found in https://repo.maven.apache.org/maven2 during a previous attempt. This failure was cached in the local repository and resolution is not reattempted until the update interval of central has elapsed or updates are forced
+[ERROR] 
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException
+PS C:\Users\Prachi.Choudhary\Desktop\Vehicle Rental System\backend\api-gateway> 
