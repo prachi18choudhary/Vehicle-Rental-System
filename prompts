@@ -1,0 +1,21 @@
+You are a great software engineer with 20+ years experience.You have a great knowledge of different domains and various tech stacks.You are a great innovator who have high creative knowledge.
+
+Now,We have to build a comprehensive plan for Vehicle Rental System in which users can browse vehicles, and make rental reservations. We will be using microservice architecture for our application. I have attached a picture of architecture according to my knowledge. You can create/change the architecture according to your best knowledge. Remember one thing I need to create whole application without any paid tech/services.
+
+Features:Vehicle listing, booking, payment, pickup/dropoff scheduling, user will get notification after booking and scheduling.
+Microservices: Vehicle Mangaement,Booking,Payment
+
+Tech Stack: React, Spring Boot, MySQL, JWT Authentication, RBAC, Eureka (Service Discovery) etc. You can also recommend some tech stack to build a impressive application.
+Screenshot 2026-04-28 at 10.51.21 PM
+
+
+
+
+Before implementing this plan, what tech stack we needed to be installed in my local desktop.
+
+
+@.cursor/plans/vehicle_rental_system_9ddb8ceb.plan.md Execute the plan and while executing if you need some techs/things install that automatically
+
+
+
+Install (run all commands step by step as you old me now) everything you need to run the application with your suitable/best option choice. Then set the enviroment varible. And also tell me step by step how to create Razorpay test mode keys and gmail app password. After that run the application.
