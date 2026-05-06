@@ -290,4 +290,5 @@ Make sure API Gateway is up at <http://localhost:8080/actuator/health>. The Vite
 
 ## License
 
-MIT — feel free to use this as a portfolio reference or starting point for your own project.
+MIT — feel free to use this as a portfolio reference or starting point for your own project.<img width="783" height="570" alt="Screenshot 2026-04-28 at 10 51 21 PM" src="https://github.com/user-attachments/assets/c8f49415-e2db-4b3c-9890-ad8f954377e1" />
+
